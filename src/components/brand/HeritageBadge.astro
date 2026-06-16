@@ -1,0 +1,16 @@
+---
+type Props = {
+  label: string;
+  tone?: "brick" | "navy" | "taxi" | "steel";
+};
+
+const { label, tone = "brick" } = Astro.props;
+const toneClass = {
+  brick: "border-brick/25 bg-brick/8 text-brick",
+  navy: "border-navy/20 bg-navy/8 text-navy",
+  taxi: "border-taxi/40 bg-taxi/20 text-asphalt",
+  steel: "border-steel/25 bg-steel/10 text-steel"
+}[tone];
+---
+
+<span class={`inline-flex rounded-full border px-3 py-1 text-xs font-black uppercase tracking-[0.14em] ${toneClass}`}>{label}</span>

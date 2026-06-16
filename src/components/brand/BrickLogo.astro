@@ -1,0 +1,17 @@
+---
+type Props = {
+  compact?: boolean;
+};
+
+const { compact = false } = Astro.props;
+---
+
+<span class={`inline-flex items-center gap-3 ${compact ? "" : "min-w-0"}`} aria-label="Brooklynite Designs">
+  <span class="brick-pattern grid h-9 w-9 shrink-0 place-items-center rounded-sm border border-asphalt/15 shadow-sm" aria-hidden="true">
+    <span class="h-3 w-5 rounded-[1px] border border-paper/80"></span>
+  </span>
+  <span class="min-w-0">
+    <span class="block font-brand text-[1.55rem] font-black leading-none text-asphalt">Brooklynite</span>
+    {!compact && <span class="mt-0.5 block text-[0.64rem] font-black uppercase tracking-[0.24em] text-brick">Est. 2016</span>}
+  </span>
+</span>

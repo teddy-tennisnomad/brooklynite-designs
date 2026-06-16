@@ -1,0 +1,39 @@
+---
+import { mapLocations } from "@/data/community";
+---
+
+<section class="overflow-hidden rounded-lg border border-asphalt/10 bg-white shadow-soft">
+  <div class="grid gap-0 lg:grid-cols-[1.15fr_0.85fr]">
+    <div class="relative min-h-[380px] bg-cream p-5">
+      <div class="absolute inset-5 rounded-[38%_46%_34%_44%] border-2 border-asphalt/18 bg-paper shadow-inner" aria-hidden="true"></div>
+      <div class="absolute inset-10 rounded-[42%_40%_35%_46%] border border-brick/25" aria-hidden="true"></div>
+      {mapLocations.map((location) => (
+        <a
+          class="focus-ring absolute z-10 grid h-10 w-10 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border-2 border-white bg-brick text-xs font-black text-white shadow-soft transition hover:scale-110"
+          href={`/brooklyn-map#${location.slug}`}
+          style={`left:${location.coordinates.x}%;top:${location.coordinates.y}%;`}
+          aria-label={location.title}
+        >
+          {location.type === "event" ? "E" : location.type === "article" ? "A" : location.type === "neighborhood" ? "N" : "P"}
+        </a>
+      ))}
+      <div class="absolute bottom-5 left-5 rounded-md bg-asphalt px-4 py-3 text-white">
+        <p class="text-xs font-black uppercase tracking-[0.18em] text-taxi">Brooklyn Map</p>
+        <p class="mt-1 text-sm text-white/72">Shop the borough. Read the borough. Visit the borough.</p>
+      </div>
+    </div>
+    <div class="grid content-center gap-4 p-6">
+      <p class="heritage-kicker">Community layer</p>
+      <h2 class="font-editorial text-4xl font-black leading-tight text-asphalt">A map for stories, events, and product origins.</h2>
+      <p class="leading-7 text-ink/70">The map becomes the connective tissue between commerce and community: bridge shirts, Polish roots, baseball memory, taxi graphics, brownstone blocks, articles, and future pop-ups.</p>
+      <div class="grid gap-3">
+        {mapLocations.slice(0, 4).map((location) => (
+          <a class="focus-ring rounded-md border border-asphalt/10 bg-paper p-3 hover:border-brick/35" href={`/brooklyn-map#${location.slug}`}>
+            <span class="text-xs font-black uppercase tracking-[0.16em] text-steel">{location.neighborhood}</span>
+            <span class="mt-1 block font-bold text-asphalt">{location.title}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

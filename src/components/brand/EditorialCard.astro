@@ -1,0 +1,16 @@
+---
+type Props = {
+  eyebrow: string;
+  title: string;
+  copy: string;
+  href: string;
+};
+
+const { eyebrow, title, copy, href } = Astro.props;
+---
+
+<a class="focus-ring archival-frame block rounded-lg p-5 transition hover:-translate-y-0.5 hover:shadow-soft" href={href}>
+  <p class="text-xs font-black uppercase tracking-[0.18em] text-steel">{eyebrow}</p>
+  <h3 class="mt-3 font-editorial text-2xl font-black leading-tight text-asphalt">{title}</h3>
+  <p class="mt-3 text-sm leading-6 text-ink/68">{copy}</p>
+</a>

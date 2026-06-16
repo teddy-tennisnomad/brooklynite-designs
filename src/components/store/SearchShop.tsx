@@ -9,21 +9,34 @@ type Props = {
 
 const categories = ["all", "tshirt", "bodysuit", "hat", "knit", "art", "accessory"];
 const recipients = ["all", "baby", "kids", "women", "men", "everyone"];
+const heritageIcons = ["all", "brooklyn-bridge", "brooklyn-baseball", "yellow-taxi", "brownstone", "family-gifting", "neighborhood"];
 
 export default function SearchShop({ products }: Props) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("all");
   const [recipient, setRecipient] = useState("all");
+  const [heritageIcon, setHeritageIcon] = useState("all");
   const [sort, setSort] = useState("featured");
 
   const results = useMemo(() => {
     const normalized = query.trim().toLowerCase();
     const filtered = products.filter((product) => {
-      const searchable = [product.title, product.subtitle, product.descriptionShort, ...product.tags, ...product.themes].join(" ").toLowerCase();
+      const searchable = [
+        product.title,
+        product.subtitle,
+        product.descriptionShort,
+        product.originStory,
+        product.heritageIcon,
+        product.capsule ?? "",
+        ...product.giftMoments,
+        ...product.tags,
+        ...product.themes
+      ].join(" ").toLowerCase();
       return (
         (!normalized || searchable.includes(normalized)) &&
         (category === "all" || product.productType === category) &&
-        (recipient === "all" || product.recipient.includes(recipient as never))
+        (recipient === "all" || product.recipient.includes(recipient as never)) &&
+        (heritageIcon === "all" || product.heritageIcon === heritageIcon)
       );
     });
 
@@ -33,12 +46,12 @@ export default function SearchShop({ products }: Props) {
       if (sort === "new") return Number(Boolean(b.newArrival)) - Number(Boolean(a.newArrival));
       return Number(Boolean(b.featured)) - Number(Boolean(a.featured));
     });
-  }, [category, products, query, recipient, sort]);
+  }, [category, heritageIcon, products, query, recipient, sort]);
 
   return (
     <div className="grid gap-6">
       <div className="rounded-lg border border-ink/10 bg-white p-4 shadow-sm">
-        <div className="grid gap-4 lg:grid-cols-[1fr_180px_180px_180px]">
+        <div className="grid gap-4 lg:grid-cols-[1fr_180px_180px_190px_180px]">
           <label className="relative block">
             <span className="sr-only">Search products</span>
             <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-ink/45" size={19} />
@@ -59,6 +72,12 @@ export default function SearchShop({ products }: Props) {
             <span className="sr-only">Recipient</span>
             <select className="focus-ring min-h-12 w-full rounded-md border-ink/15 text-base capitalize" value={recipient} onChange={(event) => setRecipient(event.target.value)}>
               {recipients.map((item) => <option key={item} value={item}>{item === "all" ? "All recipients" : item}</option>)}
+            </select>
+          </label>
+          <label>
+            <span className="sr-only">Heritage icon</span>
+            <select className="focus-ring min-h-12 w-full rounded-md border-ink/15 text-base capitalize" value={heritageIcon} onChange={(event) => setHeritageIcon(event.target.value)}>
+              {heritageIcons.map((item) => <option key={item} value={item}>{item === "all" ? "All icons" : item.replaceAll("-", " ")}</option>)}
             </select>
           </label>
           <label>

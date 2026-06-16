@@ -1,7 +1,10 @@
 ---
 import AddToCart from "@/components/cart/AddToCart";
+import HeritageBadge from "@/components/brand/HeritageBadge.astro";
+import ProductStoryPanel from "@/components/brand/ProductStoryPanel.astro";
 import ProductGrid from "@/components/store/ProductGrid.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
+import { findArticle, findMapLocation } from "@/data/community";
 import { findProduct, formatPrice, productPrice, products } from "@/data/products";
 
 export function getStaticPaths() {
@@ -12,6 +15,8 @@ const product = findProduct(Astro.params.slug ?? "");
 if (!product) return Astro.redirect("/collections");
 
 const related = products.filter((item) => item.id !== product.id && item.recipient.some((recipient) => product.recipient.includes(recipient))).slice(0, 3);
+const mapLocation = findMapLocation(product.mapLocationId);
+const relatedArticle = findArticle(product.relatedArticleIds[0]);
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Product",
@@ -35,7 +40,11 @@ const jsonLd = {
     </div>
     <div>
       <a class="focus-ring text-sm font-bold text-harbor hover:text-denim" href="/collections">Back to shop</a>
-      <h1 class="mt-5 font-display text-5xl font-semibold leading-tight">{product.title}</h1>
+      <div class="mt-5 flex flex-wrap gap-2">
+        <HeritageBadge label={product.heritageIcon.replaceAll("-", " ")} tone={product.isLimitedDrop ? "taxi" : "steel"} />
+        {product.isLimitedDrop && <HeritageBadge label="Limited drop" />}
+      </div>
+      <h1 class="mt-4 font-editorial text-5xl font-black leading-tight text-asphalt">{product.title}</h1>
       <p class="mt-3 text-xl text-ink/65">{product.subtitle}</p>
       <p class="mt-5 text-2xl font-bold text-harbor">{formatPrice(productPrice(product))}</p>
       <p class="mt-6 text-lg leading-8 text-ink/72">{product.descriptionShort}</p>
@@ -48,17 +57,32 @@ const jsonLd = {
         <div><strong class="block">Checkout</strong><span class="text-sm text-ink/62">Stripe-ready flow</span></div>
       </div>
       <div class="mt-8 grid gap-6">
+        <ProductStoryPanel story={product.originStory} location={mapLocation?.title} />
+        <section class="rounded-lg border border-asphalt/10 bg-white p-5">
+          <h2 class="font-editorial text-2xl font-black">Gift moments</h2>
+          <div class="mt-3 flex flex-wrap gap-2">
+            {product.giftMoments.map((moment) => <span class="rounded-full bg-ink/[0.06] px-3 py-1 text-sm font-bold text-ink/68">{moment}</span>)}
+          </div>
+        </section>
         <section>
-          <h2 class="font-display text-2xl font-semibold">Details</h2>
+          <h2 class="font-editorial text-2xl font-black">Details</h2>
           <p class="mt-3 leading-7 text-ink/70">{product.descriptionLong}</p>
         </section>
         <section>
-          <h2 class="font-display text-2xl font-semibold">Materials & Care</h2>
+          <h2 class="font-editorial text-2xl font-black">Materials & Care</h2>
           <ul class="mt-3 grid gap-2 text-ink/70">
             {product.materials.map((material) => <li>{material}</li>)}
           </ul>
           <p class="mt-3 text-ink/70">{product.care}</p>
         </section>
+        {relatedArticle && (
+          <section class="rounded-lg border border-asphalt/10 bg-cream p-5">
+            <p class="heritage-kicker">Related story</p>
+            <h2 class="mt-2 font-editorial text-2xl font-black">{relatedArticle.title}</h2>
+            <p class="mt-3 leading-7 text-ink/70">{relatedArticle.dek}</p>
+            <a class="mt-4 inline-flex font-black text-brick hover:text-asphalt" href={`/articles/${relatedArticle.slug}`}>Read the article</a>
+          </section>
+        )}
       </div>
     </div>
   </section>

@@ -1,0 +1,18 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import EditorialCard from "@/components/brand/EditorialCard.astro";
+import { events } from "@/data/community";
+---
+
+<BaseLayout title="Events | Brooklynite Designs">
+  <section class="container-shell py-12">
+    <p class="heritage-kicker">Events</p>
+    <h1 class="mt-3 font-editorial text-5xl font-black text-asphalt">Reasons to come back.</h1>
+    <p class="mt-5 max-w-3xl text-lg leading-8 text-ink/72">Drops, pop-ups, community walks, collaborations, and future Brooklynite gatherings.</p>
+    <div class="mt-8 grid gap-5 md:grid-cols-3">
+      {events.map((event) => (
+        <EditorialCard eyebrow={event.dateLabel} title={event.title} copy={`${event.locationLabel}. ${event.dek}`} href={`/events/${event.slug}`} />
+      ))}
+    </div>
+  </section>
+</BaseLayout>

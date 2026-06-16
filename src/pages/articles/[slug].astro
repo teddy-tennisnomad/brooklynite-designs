@@ -1,0 +1,32 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ProductGrid from "@/components/store/ProductGrid.astro";
+import { articles, findMapLocation } from "@/data/community";
+import { products } from "@/data/products";
+
+export function getStaticPaths() {
+  return articles.map((article) => ({ params: { slug: article.slug }, props: { article } }));
+}
+
+const { article } = Astro.props;
+const location = findMapLocation(article.mapLocationId);
+const relatedProducts = products.filter((product) => article.relatedProductIds.includes(product.id));
+---
+
+<BaseLayout title={`${article.title} | Brooklynite Designs`} description={article.dek}>
+  <article class="container-shell py-12">
+    <p class="heritage-kicker">{article.category.replaceAll("-", " ")}</p>
+    <h1 class="mt-3 max-w-4xl font-editorial text-5xl font-black leading-tight text-asphalt">{article.title}</h1>
+    <p class="mt-5 max-w-3xl text-xl leading-8 text-ink/72">{article.dek}</p>
+    <div class="mt-8 rounded-lg border border-asphalt/10 bg-white p-6 shadow-sm">
+      <p class="leading-8 text-ink/74">This article route is scaffolded for the editorial layer. The next pass should replace this placeholder body with researched copy, archival/family imagery, related map markers, and product storytelling.</p>
+      {location && <p class="mt-4 font-bold text-brick">Map connection: {location.title}, {location.neighborhood}</p>}
+    </div>
+  </article>
+  {relatedProducts.length > 0 && (
+    <section class="container-shell py-8">
+      <h2 class="mb-6 font-editorial text-3xl font-black">Related products</h2>
+      <ProductGrid products={relatedProducts} />
+    </section>
+  )}
+</BaseLayout>

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" role="img" aria-labelledby="title">
+  <title id="title">Yellow taxi cab tee product illustration</title>
+  <rect width="900" height="900" fill="#f6d676"/>
+  <path d="M288 185h324c42 0 76 34 76 76v378c0 42-34 76-76 76H288c-42 0-76-34-76-76V261c0-42 34-76 76-76z" fill="#191919" stroke="#202124" stroke-width="18"/>
+  <path d="M345 186c20 40 55 60 105 60s85-20 105-60" fill="none" stroke="#f4efe5" stroke-width="18" stroke-linecap="round"/>
+  <path d="M332 443h236l48 72v78H284v-78l48-72z" fill="#f2b84b" stroke="#f4efe5" stroke-width="14" stroke-linejoin="round"/>
+  <path d="M362 443l28-45h120l28 45" fill="none" stroke="#f4efe5" stroke-width="14" stroke-linejoin="round"/>
+  <circle cx="356" cy="600" r="24" fill="#f4efe5"/>
+  <circle cx="544" cy="600" r="24" fill="#f4efe5"/>
+  <path d="M396 522h108" stroke="#202124" stroke-width="18" stroke-linecap="round"/>
+</svg>

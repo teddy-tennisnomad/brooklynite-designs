@@ -1,0 +1,18 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import EditorialCard from "@/components/brand/EditorialCard.astro";
+import { articles } from "@/data/community";
+---
+
+<BaseLayout title="Articles | Brooklynite Designs">
+  <section class="container-shell py-12">
+    <p class="heritage-kicker">Articles</p>
+    <h1 class="mt-3 font-editorial text-5xl font-black text-asphalt">Stories behind the borough.</h1>
+    <p class="mt-5 max-w-3xl text-lg leading-8 text-ink/72">Product icons, Polish immigrant roots, neighborhood history, gift guides, and the Brooklyn memories that make the brand worth returning to.</p>
+    <div class="mt-8 grid gap-5 md:grid-cols-3">
+      {articles.map((article) => (
+        <EditorialCard eyebrow={article.category.replaceAll("-", " ")} title={article.title} copy={article.dek} href={`/articles/${article.slug}`} />
+      ))}
+    </div>
+  </section>
+</BaseLayout>
