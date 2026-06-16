@@ -1,0 +1,23 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import ProductGrid from "@/components/store/ProductGrid.astro";
+import { collections, products } from "@/data/products";
+
+export function getStaticPaths() {
+  return collections.map((collection) => ({ params: { slug: collection.slug }, props: { collection } }));
+}
+
+const { collection } = Astro.props;
+const collectionProducts = products.filter(collection.predicate);
+---
+
+<BaseLayout title={`${collection.title} | Brooklynite Designs`} description={collection.description}>
+  <section class="container-shell py-12">
+    <a class="focus-ring text-sm font-bold text-harbor hover:text-denim" href="/collections">All collections</a>
+    <h1 class="mt-4 font-display text-5xl font-semibold">{collection.title}</h1>
+    <p class="mt-4 max-w-2xl text-lg leading-8 text-ink/70">{collection.description}</p>
+  </section>
+  <section class="container-shell">
+    <ProductGrid products={collectionProducts} />
+  </section>
+</BaseLayout>

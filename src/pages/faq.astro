@@ -1,0 +1,24 @@
+---
+import BaseLayout from "@/layouts/BaseLayout.astro";
+
+const faqs = [
+  ["Where are products made?", "The scaffold highlights local Brooklyn printing and family fulfillment, with product-level notes ready for exact vendor and handmade details."],
+  ["Can I send a gift?", "Yes. The product model supports bundles and gift messaging; the Stripe Checkout step should pass gift notes into order metadata."],
+  ["What about inventory?", "Sample inventory policies are included on variants now. Firestore can become the source of truth for live stock counts."],
+  ["Do customers need accounts?", "No. Customer accounts are intentionally not a launch blocker for the MVP."]
+];
+---
+
+<BaseLayout title="FAQ | Brooklynite Designs">
+  <section class="container-shell py-16">
+    <h1 class="font-display text-5xl font-semibold">FAQ</h1>
+    <div class="mt-8 grid gap-4">
+      {faqs.map(([question, answer]) => (
+        <section class="rounded-lg border border-ink/10 bg-white p-5 shadow-sm">
+          <h2 class="font-semibold">{question}</h2>
+          <p class="mt-2 leading-7 text-ink/70">{answer}</p>
+        </section>
+      ))}
+    </div>
+  </section>
+</BaseLayout>

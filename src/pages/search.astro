@@ -1,0 +1,15 @@
+---
+import SearchShop from "@/components/store/SearchShop";
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import { products } from "@/data/products";
+---
+
+<BaseLayout title="Search | Brooklynite Designs">
+  <section class="container-shell py-12">
+    <h1 class="font-display text-5xl font-semibold">Search the shop</h1>
+    <p class="mt-4 max-w-2xl text-lg leading-8 text-ink/70">Find products by category, recipient, price, and theme.</p>
+    <div class="mt-8">
+      <SearchShop products={products} client:load />
+    </div>
+  </section>
+</BaseLayout>

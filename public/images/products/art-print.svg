@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" role="img" aria-labelledby="title">
+  <title id="title">Brownstone block art print product illustration</title>
+  <rect width="900" height="900" fill="#f6eee6"/>
+  <rect x="214" y="128" width="472" height="644" rx="8" fill="#fffaf5" stroke="#202124" stroke-width="18"/>
+  <path d="M286 646V322h328v324" fill="#c67f60" stroke="#202124" stroke-width="14" stroke-linejoin="round"/>
+  <path d="M322 378h76v92h-76zM412 378h76v92h-76zM502 378h76v92h-76zM322 504h76v92h-76zM412 504h76v92h-76zM502 504h76v92h-76z" fill="#f2c45d" stroke="#202124" stroke-width="10"/>
+  <path d="M268 650h364" stroke="#1d5c63" stroke-width="18" stroke-linecap="round"/>
+</svg>

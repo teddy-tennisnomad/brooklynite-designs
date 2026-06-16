@@ -1,0 +1,76 @@
+---
+import "../styles/global.css";
+import CartDrawer from "@/components/cart/CartDrawer";
+
+type Props = {
+  title?: string;
+  description?: string;
+};
+
+const {
+  title = "Brooklynite Designs",
+  description = "Brooklyn-inspired apparel, baby gifts, hats, knits, art, and accessories from a family-run shop."
+} = Astro.props;
+
+const nav = [
+  { href: "/collections", label: "Shop" },
+  { href: "/collections/baby-gifts", label: "Baby Gifts" },
+  { href: "/about", label: "Our Story" },
+  { href: "/shipping-returns", label: "Shipping" }
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-paper focus:px-4 focus:py-2" href="#main">Skip to content</a>
+    <header class="sticky top-0 z-40 border-b border-ink/10 bg-paper/92 backdrop-blur">
+      <div class="container-shell flex min-h-16 items-center justify-between gap-5">
+        <a href="/" class="focus-ring font-display text-2xl font-semibold text-ink">Brooklynite</a>
+        <nav class="hidden items-center gap-7 text-sm font-semibold text-ink/75 md:flex" aria-label="Main navigation">
+          {nav.map((item) => <a class="focus-ring hover:text-ink" href={item.href}>{item.label}</a>)}
+        </nav>
+        <div class="flex items-center gap-2">
+          <a class="focus-ring hidden rounded-full border border-ink/15 px-4 py-2 text-sm font-semibold text-ink hover:border-harbor hover:text-harbor sm:inline-flex" href="/search">Search</a>
+          <CartDrawer client:load />
+        </div>
+      </div>
+    </header>
+    <main id="main">
+      <slot />
+    </main>
+    <footer class="mt-20 border-t border-ink/10 bg-white">
+      <div class="container-shell grid gap-10 py-12 md:grid-cols-[1.4fr_1fr_1fr]">
+        <div>
+          <p class="font-display text-2xl font-semibold">Brooklynite Designs</p>
+          <p class="mt-3 max-w-md text-sm leading-6 text-ink/68">Family-run gifts and apparel inspired by Brooklyn, fulfilled with care and built for easy gifting.</p>
+        </div>
+        <div>
+          <p class="text-sm font-bold uppercase tracking-wide text-ink/50">Shop</p>
+          <div class="mt-4 grid gap-2 text-sm text-ink/70">
+            <a href="/collections">All collections</a>
+            <a href="/collections/apparel">Apparel</a>
+            <a href="/collections/baby-gifts">Baby gifts</a>
+          </div>
+        </div>
+        <div>
+          <p class="text-sm font-bold uppercase tracking-wide text-ink/50">Help</p>
+          <div class="mt-4 grid gap-2 text-sm text-ink/70">
+            <a href="/contact">Contact</a>
+            <a href="/faq">FAQ</a>
+            <a href="/shipping-returns">Shipping & returns</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
